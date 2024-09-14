@@ -5,7 +5,7 @@
   ];
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 80 443 6443 ];
+  networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 ];
 
   # Enable the OpenSSH service
   services.openssh.enable = true;
@@ -15,6 +15,7 @@
     PermitRootLogin = lib.mkForce "no";             # Disable root login over SSH
     PasswordAuthentication = false;      # Disable password-based logins
     PubkeyAuthentication = true;       # Enable public key authentication
+    Port = 6543;
   };
 
   users.users.martin = {
