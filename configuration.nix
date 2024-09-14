@@ -42,7 +42,8 @@
 
 
   environment.systemPackages = with pkgs; [
-    git                                     # Adds Git to the system packages
+    git
+    pkgs.k3s_1_29
   ];
 
   # Configure git
