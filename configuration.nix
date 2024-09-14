@@ -12,11 +12,11 @@
 
   # SSH settings
   services.openssh.settings = {
-    PermitRootLogin = "no";             # Disable root login over SSH
-    PasswordAuthentication = "no";      # Disable password-based logins
-    PubkeyAuthentication = "yes";       # Enable public key authentication
+    PermitRootLogin = false;             # Disable root login over SSH
+    PasswordAuthentication = false;      # Disable password-based logins
+    PubkeyAuthentication = true;       # Enable public key authentication
   };
-  
+
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user
     home = "/home/martin"; # Home directory for the user
