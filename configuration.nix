@@ -1,4 +1,8 @@
 { lib, config, pkgs, ... }: 
+let
+    isMaster = (builtins.getEnv "K3S_TOKEN" == "" || builtins.getEnv "K3S_TOKEN" == null);
+    serverIp = builtins.getEnv "K3S_SERVER_IP";
+in
 {
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
@@ -23,13 +27,29 @@
 
   services.k3s = {
     enable = true;
-    role = "server";
-    clusterInit = true;
+    role = if isMaster then "server" else "agent";
+    clusterInit = isMaster;
+    token = if isMaster then null else builtins.getEnv "K3S_TOKEN";
+    serverAddr = if isMaster then null else "https://${serverIp}:6443";
   };
 
-# Firewall configuration
+  # Firewall configuration
   networking.firewall.enable = true;
+
   networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 8080 ];   # Allow only the custom SSH port, remove port 22
+
+  networking.firewall.allowedTCPPorts = [
+    80   # Web
+    8080 # Web
+    443  # Web
+    6543 # Mapped SSH
+    6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+    2379 # k3s, etcd clients: required if using a "High Availability Embedded etcd" configuration
+    2380 # k3s, etcd peers: required if using a "High Availability Embedded etcd" configuration
+  ];
+  networking.firewall.allowedUDPPorts = [
+    8472 # k3s, flannel: required if using multi-node for inter-node networking
+  ];
 
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user
