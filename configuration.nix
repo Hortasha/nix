@@ -4,12 +4,15 @@
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
   ];
 
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22 80 443 6443 ];
+
   # Enable the OpenSSH service
   services.openssh.enable = true;
 
   # SSH settings
   services.openssh.settings = {
-    PermitRootLogin = "yes";             # Disable root login over SSH
+    PermitRootLogin = "no";             # Disable root login over SSH
     PasswordAuthentication = false;      # Disable password-based logins
     PubkeyAuthentication = true;       # Enable public key authentication
   };
