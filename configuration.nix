@@ -18,7 +18,7 @@
 
 # Firewall configuration
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 ];   # Allow only the custom SSH port, remove port 22
+  networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 8080 ];   # Allow only the custom SSH port, remove port 22
 
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user
