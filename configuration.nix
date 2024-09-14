@@ -73,10 +73,6 @@ in
   # Define the group for the user
   users.groups.martin = {};
 
-  security.sudo = {
-    enable = true;
-  };
-
   # Configure git
   environment.etc."gitconfig".text = ''
     [user]
