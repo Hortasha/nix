@@ -12,7 +12,7 @@
 
   # SSH settings
   services.openssh.settings = {
-    PermitRootLogin = false;             # Disable root login over SSH
+    PermitRootLogin = "no";             # Disable root login over SSH
     PasswordAuthentication = false;      # Disable password-based logins
     PubkeyAuthentication = true;       # Enable public key authentication
   };
