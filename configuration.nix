@@ -62,7 +62,7 @@ in
     group = "martin";      # You can set the group name the same as the username
 
     # Add the user to the necessary groups (optional)
-    extraGroups = [ "wheel" ];  # Allows the user to use sudo (optional)
+    extraGroups = [ "wheel" "k3s" ];  # Allows the user to use sudo (optional)
 
     # Authorized SSH key for this user
     openssh.authorizedKeys.keys = [
