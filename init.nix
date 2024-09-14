@@ -52,6 +52,6 @@
   # Setup git
   environment.shellInit = ''
     sudo rm -rf /etc/nixos
-    git clone https://github.com/Hortasha/nix.git /etc/nixos
+    sudo git clone https://github.com/Hortasha/nix.git /etc/nixos
   '';
 }
