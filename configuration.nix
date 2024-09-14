@@ -32,7 +32,7 @@ in
     clusterInit = isMaster;
     token = if isMaster then null else builtins.getEnv "K3S_TOKEN";
     
-    lib.mkIf (isAgent = true) {
+    lib.mkIf = isAgent {
         serverAddr = "https://${serverIp}:6443";
     };
   };
