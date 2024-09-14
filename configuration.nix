@@ -36,8 +36,6 @@ in
   # Firewall configuration
   networking.firewall.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 8080 ];   # Allow only the custom SSH port, remove port 22
-
   networking.firewall.allowedTCPPorts = [
     80   # Web
     8080 # Web
