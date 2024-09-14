@@ -4,17 +4,28 @@
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
   ];
 
+  environment.systemPackages = with pkgs; [
+    git
+    k3s
+  ];
+
   # Enable the OpenSSH service
   services.openssh.enable = true;
 
   # SSH settings
   services.openssh.settings = {
-    PermitRootLogin = lib.mkForce "no";             # Disable root login over SSH
-    PasswordAuthentication = false;      # Disable password-based logins
-    PubkeyAuthentication = true;       # Enable public key authentication
+    PermitRootLogin = lib.mkForce "no";
+    PasswordAuthentication = false;
+    PubkeyAuthentication = true;
   };
 
   services.openssh.ports = [ 6543 ];
+
+  services.k3s = {
+    enable = true;
+    role = "server";
+    clusterInit = true;
+  };
 
 # Firewall configuration
   networking.firewall.enable = true;
@@ -39,12 +50,6 @@
 
   # Define the group for the user
   users.groups.martin = {};
-
-
-  environment.systemPackages = with pkgs; [
-    git
-    k3s
-  ];
 
   # Configure git
   environment.etc."gitconfig".text = ''
