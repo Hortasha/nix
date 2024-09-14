@@ -43,7 +43,7 @@
 
   environment.systemPackages = with pkgs; [
     git
-    pkgs.k3s_1_29
+    k3s
   ];
 
   # Configure git
