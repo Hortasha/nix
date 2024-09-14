@@ -4,9 +4,6 @@
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
   ];
 
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 6543 80 443 6443 ];
-
   # Enable the OpenSSH service
   services.openssh.enable = true;
 
@@ -17,6 +14,10 @@
     PubkeyAuthentication = true;       # Enable public key authentication
     Port = 6543;
   };
+
+# Firewall configuration
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 45022 80 443 6443 ];   # Allow only the custom SSH port, remove port 22
 
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user
