@@ -36,4 +36,9 @@
 
   # Define the group for the user
   users.groups.martin = {};
+
+
+  environment.systemPackages = with pkgs; [
+    git                                     # Adds Git to the system packages
+  ];
 }
