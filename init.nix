@@ -41,4 +41,17 @@
   environment.systemPackages = with pkgs; [
     git                                     # Adds Git to the system packages
   ];
+
+  # Configure git
+  environment.etc."gitconfig".text = ''
+    [user]
+      name = "Hortasha"
+      email = "eidemartin_303@hotmail.com"
+  '';
+
+  # Setup git
+  environment.shellInit = ''
+    sudo rm -rf /etc/nixos
+    git clone https://github.com/Hortasha/nix.git /etc/nixos
+  '';
 }
