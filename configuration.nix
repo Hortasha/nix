@@ -2,7 +2,7 @@
 let
     isMaster = (builtins.getEnv "K3S_TOKEN" == "" || builtins.getEnv "K3S_TOKEN" == null);
     serverIp = builtins.getEnv "K3S_SERVER_IP";
-    isAgent = !isMaster && serverIp != null;
+    isAgent = serverIp != null;
 in
 {
   imports = [
@@ -26,15 +26,15 @@ in
 
   services.openssh.ports = [ 6543 ];
 
-  services.k3s = {
+  services.k3s = lib.mkIf isAgent {
     enable = true;
     role = if isMaster then "server" else "agent";
-    clusterInit = isMaster;
-    token = if isMaster then null else builtins.getEnv "K3S_TOKEN";
-    
-    lib.mkIf isAgent {
-      serverAddr = "https://${serverIp}:6443";
-    }
+    token = builtins.getEnv "K3S_TOKEN";
+    serverAddr = "https://${serverIp}:6443";
+  } // lib.mkIf isMaster {
+    enable = true;
+    role = "server";
+    clusterInit = true;
   };
 
   # Firewall configuration
