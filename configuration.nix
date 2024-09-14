@@ -2,6 +2,7 @@
 let
     isMaster = (builtins.getEnv "K3S_TOKEN" == "" || builtins.getEnv "K3S_TOKEN" == null);
     serverIp = builtins.getEnv "K3S_SERVER_IP";
+    isAgent = !isMaster && serverIp != null;
 in
 {
   imports = [
@@ -31,7 +32,7 @@ in
     clusterInit = isMaster;
     token = if isMaster then null else builtins.getEnv "K3S_TOKEN";
     
-    lib.mkIf (!isMaster && serverIp != null) {
+    lib.mkIf (isAgent = true) {
         serverAddr = "https://${serverIp}:6443";
     };
   };
