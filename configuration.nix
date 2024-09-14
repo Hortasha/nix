@@ -30,7 +30,10 @@ in
     role = if isMaster then "server" else "agent";
     clusterInit = isMaster;
     token = if isMaster then null else builtins.getEnv "K3S_TOKEN";
-    serverAddr = if isMaster then null else "https://${serverIp}:6443";
+    
+    lib.mkIf (!isMaster && serverIp != null) {
+        serverAddr = "https://${serverIp}:6443";
+    };
   };
 
   # Firewall configuration
