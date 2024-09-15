@@ -29,5 +29,5 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 Create Node
 
 ```bash
-K3S_TOKEN="<token>" K3S_SERVER_IP="<master IP>" NODE_NAME="<name of node, unique>" sudo nixos-rebuild switch
+K3S_TOKEN="<token>" K3S_SERVER_IP="<master IP>" NODE_NAME="<name of node, unique>" sudo -E HOME=/root nixos-rebuild switch
 ```
