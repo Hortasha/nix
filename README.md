@@ -15,7 +15,7 @@ sudo nixos-rebuild switch
 ### Init cluster with master node
 
 ```bash
-NODE_NAME="<name of node, unique>" sudo nixos-rebuild switch
+K3_NAME="<name of node, unique>" K3_ROLE="server" sudo -E HOME=/root nixos-rebuild switch
 ```
 
 ### Another node on the same cluster
@@ -29,5 +29,5 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 Create Node
 
 ```bash
-K3S_TOKEN="<token>" K3S_SERVER_IP="<master IP>" NODE_NAME="<name of node, unique>" sudo -E HOME=/root nixos-rebuild switch
+K3_TOKEN="<token>" K3_IP="<master IP>" K3_NAME="<name of node, unique>" K3_ROLE="server|agent" sudo -E HOME=/root nixos-rebuild switch
 ```
