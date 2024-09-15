@@ -1,0 +1,4 @@
+- Lets make sure creation of nodes is dynamic
+- Structure config into multiple files. Right now its looking messy.
+- Guide on how to use kubectl remotely. (simplified for my use case)
+  - We could just add secret in github and do this through workflow hopefully.
