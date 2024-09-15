@@ -3,11 +3,19 @@ let
     configToken = builtins.getEnv "K3S_TOKEN";
     serverIp = builtins.getEnv "K3S_SERVER_IP";
     configName = builtins.getEnv "NODE_NAME";
+
+      # Perform trace logging during evaluation
+    _ = builtins.trace "Logging MY TOKEN: ${configToken}";
+    _ = builtins.trace "Logging MY SECRET: ${serverIp}";
 in
 {
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
   ];
+
+  environment.variables = {
+    CONFIG_TOKEN = configToken;
+  };
 
   environment.systemPackages = with pkgs; [
     git
