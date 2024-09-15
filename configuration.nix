@@ -1,8 +1,8 @@
 { lib, config, pkgs, ... }: 
 let
-    configToken = builtins.getEnv "K3S_TOKEN" or (throw "K3S_TOKEN is not set!");
-    serverIp = builtins.getEnv "K3S_SERVER_IP" or (throw "K3S_SERVER_IP is not set!");
-    configName = builtins.getEnv "NODE_NAME" or  (throw "NODE_NAME is not set!");
+    configToken = builtins.getEnv "K3S_TOKEN";
+    serverIp = builtins.getEnv "K3S_SERVER_IP";
+    configName = builtins.getEnv "NODE_NAME";
 in
 {
   imports = [
@@ -29,8 +29,8 @@ in
   services.k3s = {
     enable = true;
     role = "agent";
-    token = configToken;
-    serverAddr = "https://${serverIp}:6443";
+    token = if configToken != "" then configToken else (throw "K3S_TOKEN is not set!");;
+    serverAddr = if serverIp != "" then "https://${serverIp}:6443" else (throw "K3S_SERVER_IP is not set!");
   };
 
   # Firewall configuration
