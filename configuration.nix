@@ -6,7 +6,7 @@ let
 
       # Perform trace logging during evaluation
     _ = builtins.trace "Logging MY TOKEN: ${configToken}";
-    _ = builtins.trace "Logging MY SECRET: ${serverIp}";
+    trace = builtins.trace "Logging MY SECRET: ${serverIp}";
 in
 {
   imports = [
