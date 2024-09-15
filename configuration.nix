@@ -26,7 +26,7 @@ in
 
   services.openssh.ports = [ 6543 ];
 
-  services.k3s = lib.mkIf isAgent {
+  services.k3s = {
     enable = true;
     role = "agent";
     token = configToken;
