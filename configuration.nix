@@ -31,7 +31,7 @@ in
     role = "agent";
     token = if configToken != "" then configToken else (throw "K3S_TOKEN is not set!");
     serverAddr = if serverIp != "" then "https://${serverIp}:6443" else (throw "K3S_SERVER_IP is not set!");
-    nodeName = if configName != "" then configName else (throw "NODE_NAME is not set!");  # Use unique node name
+    extraFlags = if configName != "" then [ "--node-name=${nodeName}" ] else (throw "NODE_NAME is not set!"); 
   };
 
   # Firewall configuration
