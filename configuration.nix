@@ -27,15 +27,12 @@ in
 
   services.openssh.ports = [ 6543 ];
 
-  services.k3s = lib.mkIf isAgent {
+  services.k3s = {
     enable = true;
     role = if isMaster then "server" else "agent";
     token = builtins.getEnv "K3S_TOKEN";
-    serverAddr = "https://${serverIp}:6443";
-  } // lib.mkIf isMaster {
-    enable = true;
-    role = "server";
-    clusterInit = true;
+    serverAddr = lib.mkIf (!isMaster) "https://${serverIp}:6443";
+    clusterInit = lib.mkIf isMaster true;  # Initialize the cluster if master
   };
 
   # Firewall configuration
