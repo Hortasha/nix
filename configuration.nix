@@ -1,9 +1,8 @@
 { lib, config, pkgs, ... }: 
 let
-    isMaster = (builtins.getEnv "K3S_TOKEN" == "" || builtins.getEnv "K3S_TOKEN" == null);
+    configToken = builtins.getEnv "K3S_TOKEN";
     serverIp = builtins.getEnv "K3S_SERVER_IP";
-    isAgent = serverIp != null;
-    name = builtins.getEnv "NODE_NAME";
+    configName = builtins.getEnv "NODE_NAME";
 in
 {
   imports = [
@@ -30,7 +29,7 @@ in
   services.k3s = lib.mkIf isAgent {
     enable = true;
     role = "agent";
-    token = builtins.getEnv "K3S_TOKEN";
+    token = configToken;
     serverAddr = "https://${serverIp}:6443";
   };
 
@@ -50,7 +49,7 @@ in
     8472 # k3s, flannel: required if using multi-node for inter-node networking
   ];
 
-  networking.hostName = name;
+  networking.hostName = configName;
 
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user
