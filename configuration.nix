@@ -3,6 +3,7 @@ let
     isMaster = (builtins.getEnv "K3S_TOKEN" == "" || builtins.getEnv "K3S_TOKEN" == null);
     serverIp = builtins.getEnv "K3S_SERVER_IP";
     isAgent = serverIp != null;
+    name = builtins.getEnv "NODE_NAME";
 in
 {
   imports = [
@@ -52,6 +53,8 @@ in
   networking.firewall.allowedUDPPorts = [
     8472 # k3s, flannel: required if using multi-node for inter-node networking
   ];
+
+  networking.hostName = name;
 
   users.users.martin = {
     isNormalUser = true;   # Marks this user as a normal (non-system) user

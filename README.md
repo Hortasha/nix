@@ -12,6 +12,22 @@ sudo nixos-rebuild switch
 
 ## 3: After having pulled the repo. We setup the actual environment.
 
+### Init cluster with master node
+
 ```bash
-sudo nixos-rebuild switch
+NODE_NAME="<name of node, unique>" sudo nixos-rebuild switch
+```
+
+### Another node on the same cluster
+
+Get token
+
+```bash
+sudo cat /var/lib/rancher/k3s/server/node-token
+```
+
+Create Node
+
+```bash
+K3S_TOKEN="<token>" K3S_SERVER_IP="<master IP>" NODE_NAME="<name of node, unique>" sudo nixos-rebuild switch
 ```
