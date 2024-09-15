@@ -50,5 +50,6 @@
   environment.shellInit = ''
     sudo rm -rf /etc/nixos
     sudo git clone https://github.com/Hortasha/nix.git /etc/nixos
+    git config --global --add safe.directory /etc/nixos
   '';
 }
