@@ -29,7 +29,7 @@ in
   services.k3s = {
     enable = true;
     role = "agent";
-    token = if configToken != "" then configToken else (throw "K3S_TOKEN is not set!");;
+    token = if configToken != "" then configToken else (throw "K3S_TOKEN is not set!");
     serverAddr = if serverIp != "" then "https://${serverIp}:6443" else (throw "K3S_SERVER_IP is not set!");
   };
 
